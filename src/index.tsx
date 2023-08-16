@@ -17,6 +17,24 @@ const InstantClipSync = NativeModules.InstantClipSync
       }
     );
 
-export function multiply(a: number, b: number): Promise<number> {
-  return InstantClipSync.multiply(a, b);
+export function save(key: string, value: string) {
+  return InstantClipSync.storeStringInInstantAppCookie(`${key}:${value}`);
+}
+
+export function get(key?: string) {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const raw =
+        (await InstantClipSync.retrieveStringInInstantAppCookie()) as string;
+      if (!key) return resolve(raw);
+      resolve(
+        raw
+          .split(';')
+          .find((pair) => pair.indexOf(`${key}:`) !== -1)
+          ?.replace(`${key}:`, '')
+      );
+    } catch (error) {
+      reject(error);
+    }
+  });
 }
