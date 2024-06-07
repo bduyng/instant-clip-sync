@@ -1,6 +1,6 @@
 {
   "name": "react-native-instant-clip-sync",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Store a string from AppClip or Instant App and retrieve in full-app",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",

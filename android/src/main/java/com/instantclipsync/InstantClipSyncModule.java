@@ -68,6 +68,11 @@ public class InstantClipSyncModule extends ReactContextBaseJavaModule {
     
     try {
       byte[] bytes = InstantApps.getPackageManagerCompat(context).getInstantAppCookie();
+
+      if (bytes == null) {
+        promise.resolve(retrievedData);
+        return
+      }
       // Convert the bytes back to string
       retrievedData = new String(bytes);
       Log.i(TAG, "Instant App cookie bytes.length " + bytes.length + " " + retrievedData);
